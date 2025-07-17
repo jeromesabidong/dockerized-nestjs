@@ -1,0 +1,181 @@
+openapi: 3.0.3
+info:
+  title: Dockerized NestJS API
+  description: |
+    A production-ready, dockerized NestJS application with modern development practices.
+
+    This API provides basic functionality including health checks and welcome messages.
+    Built with NestJS framework and containerized with Docker for easy deployment.
+  version: 0.0.1
+  contact:
+    name: API Support
+    url: https://github.com/your-username/dockerized-nestjs
+  license:
+    name: MIT
+    url: https://opensource.org/licenses/MIT
+
+servers:
+  - url: http://localhost:3000
+    description: Development server
+  - url: http://localhost:3000/api
+    description: Development server with API prefix
+
+paths:
+  /:
+    get:
+      summary: Welcome message
+      description: Returns a welcome message for the dockerized NestJS application
+      operationId: getWelcome
+      tags:
+        - General
+      responses:
+        '200':
+          description: Welcome message retrieved successfully
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: 'Hello World! This is a dockerized NestJS application.'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /api:
+    get:
+      summary: API Welcome message
+      description: Returns a welcome message for the API endpoint (with global prefix)
+      operationId: getApiWelcome
+      tags:
+        - General
+      responses:
+        '200':
+          description: API welcome message retrieved successfully
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: 'Hello World! This is a dockerized NestJS application.'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /health:
+    get:
+      summary: Health check
+      description: Returns the health status of the application including uptime and timestamp
+      operationId: getHealth
+      tags:
+        - Health
+      responses:
+        '200':
+          description: Health status retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HealthResponse'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /api/health:
+    get:
+      summary: API Health check
+      description: Returns the health status of the application including uptime and timestamp (with global prefix)
+      operationId: getApiHealth
+      tags:
+        - Health
+      responses:
+        '200':
+          description: API health status retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HealthResponse'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+components:
+  schemas:
+    HealthResponse:
+      type: object
+      required:
+        - status
+        - timestamp
+        - uptime
+      properties:
+        status:
+          type: string
+          enum: [ok]
+          description: Health status of the application
+          example: 'ok'
+        timestamp:
+          type: string
+          format: date-time
+          description: Current timestamp when health check was performed
+          example: '2025-07-17T12:49:37.581Z'
+        uptime:
+          type: number
+          format: float
+          description: Application uptime in seconds
+          example: 60.604752004
+      example:
+        status: 'ok'
+        timestamp: '2025-07-17T12:49:37.581Z'
+        uptime: 60.604752004
+
+    Error:
+      type: object
+      required:
+        - statusCode
+        - message
+      properties:
+        statusCode:
+          type: integer
+          description: HTTP status code
+          example: 500
+        message:
+          type: string
+          description: Error message
+          example: 'Internal server error'
+        error:
+          type: string
+          description: Error type
+          example: 'Internal Server Error'
+        timestamp:
+          type: string
+          format: date-time
+          description: Timestamp when the error occurred
+          example: '2025-07-17T12:49:37.581Z'
+        path:
+          type: string
+          description: Request path that caused the error
+          example: '/api/health'
+      example:
+        statusCode: 500
+        message: 'Internal server error'
+        error: 'Internal Server Error'
+        timestamp: '2025-07-17T12:49:37.581Z'
+        path: '/api/health'
+
+tags:
+  - name: General
+    description: General application endpoints
+  - name: Health
+    description: Health check and monitoring endpoints
+
+externalDocs:
+  description: Find more info about this project
+  url: https://github.com/your-username/dockerized-nestjs/blob/main/README.md
