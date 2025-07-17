@@ -1,23 +1,29 @@
 # Multi-stage Docker build for production optimization
 FROM node:20-alpine AS development
 
+# Install pnpm globally
+RUN corepack enable && corepack prepare pnpm@latest --activate
+
 # Set working directory
 WORKDIR /app
 
 # Copy package files
-COPY package*.json ./
+COPY package*.json pnpm-lock.yaml* ./
 
 # Install dependencies
-RUN npm install
+RUN pnpm install --frozen-lockfile
 
 # Copy source code
 COPY . .
 
 # Build the application
-RUN npm run build
+RUN pnpm run build
 
 # Production stage
 FROM node:20-alpine AS production
+
+# Install pnpm globally
+RUN corepack enable && corepack prepare pnpm@latest --activate
 
 # Create non-root user for security
 RUN addgroup -g 1001 -S nodejs
@@ -27,10 +33,10 @@ RUN adduser -S nestjs -u 1001
 WORKDIR /app
 
 # Copy package files
-COPY package*.json ./
+COPY package*.json pnpm-lock.yaml* ./
 
 # Install only production dependencies
-RUN npm ci --omit=dev && npm cache clean --force
+RUN pnpm install --frozen-lockfile --prod && pnpm store prune
 
 # Copy built application from development stage
 COPY --from=development /app/dist ./dist

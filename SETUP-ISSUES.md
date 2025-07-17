@@ -1,5 +1,7 @@
 # Setup Issues and Troubleshooting Guide
 
+> **📦 Note**: This project has been migrated from npm to pnpm. The issues below are historical and documented for reference. Current setup uses pnpm as the package manager. See [PNPM-MIGRATION.md](PNPM-MIGRATION.md) for migration details.
+
 This document outlines all the issues encountered during the scaffolding and setup of the Dockerized NestJS application, along with their solutions. This serves as a reference for future development and troubleshooting.
 
 ## Table of Contents

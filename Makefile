@@ -73,19 +73,19 @@ prod-shell: ## Access shell in production container
 # Testing commands
 .PHONY: test
 test: ## Run tests in development container
-	docker-compose -f $(COMPOSE_FILE_DEV) exec $(SERVICE_NAME) npm test
+	docker-compose -f $(COMPOSE_FILE_DEV) exec $(SERVICE_NAME) pnpm test
 
 .PHONY: test-e2e
 test-e2e: ## Run e2e tests in development container
-	docker-compose -f $(COMPOSE_FILE_DEV) exec $(SERVICE_NAME) npm run test:e2e
+	docker-compose -f $(COMPOSE_FILE_DEV) exec $(SERVICE_NAME) pnpm run test:e2e
 
 .PHONY: test-watch
 test-watch: ## Run tests in watch mode in development container
-	docker-compose -f $(COMPOSE_FILE_DEV) exec $(SERVICE_NAME) npm run test:watch
+	docker-compose -f $(COMPOSE_FILE_DEV) exec $(SERVICE_NAME) pnpm run test:watch
 
 .PHONY: test-cov
 test-cov: ## Run tests with coverage in development container
-	docker-compose -f $(COMPOSE_FILE_DEV) exec $(SERVICE_NAME) npm run test:cov
+	docker-compose -f $(COMPOSE_FILE_DEV) exec $(SERVICE_NAME) pnpm run test:cov
 
 # Utility commands
 .PHONY: clean
@@ -106,15 +106,15 @@ health: ## Check application health
 
 .PHONY: install
 install: ## Install dependencies in development container
-	docker-compose -f $(COMPOSE_FILE_DEV) exec $(SERVICE_NAME) npm install
+	docker-compose -f $(COMPOSE_FILE_DEV) exec $(SERVICE_NAME) pnpm install
 
 .PHONY: lint
 lint: ## Run linter in development container
-	docker-compose -f $(COMPOSE_FILE_DEV) exec $(SERVICE_NAME) npm run lint
+	docker-compose -f $(COMPOSE_FILE_DEV) exec $(SERVICE_NAME) pnpm run lint
 
 .PHONY: format
 format: ## Format code in development container
-	docker-compose -f $(COMPOSE_FILE_DEV) exec $(SERVICE_NAME) npm run format
+	docker-compose -f $(COMPOSE_FILE_DEV) exec $(SERVICE_NAME) pnpm run format
 
 # Build and run shortcuts
 .PHONY: start
@@ -135,15 +135,15 @@ rebuild: dev-down dev-build dev-up ## Rebuild and restart development environmen
 # Database commands (when using PostgreSQL)
 .PHONY: db-migrate
 db-migrate: ## Run database migrations
-	docker-compose -f $(COMPOSE_FILE_DEV) exec $(SERVICE_NAME) npm run migration:run
+	docker-compose -f $(COMPOSE_FILE_DEV) exec $(SERVICE_NAME) pnpm run migration:run
 
 .PHONY: db-seed
 db-seed: ## Seed the database
-	docker-compose -f $(COMPOSE_FILE_DEV) exec $(SERVICE_NAME) npm run seed
+	docker-compose -f $(COMPOSE_FILE_DEV) exec $(SERVICE_NAME) pnpm run seed
 
 .PHONY: db-reset
 db-reset: ## Reset the database
-	docker-compose -f $(COMPOSE_FILE_DEV) exec $(SERVICE_NAME) npm run migration:revert
+	docker-compose -f $(COMPOSE_FILE_DEV) exec $(SERVICE_NAME) pnpm run migration:revert
 
 # NestJS CLI commands
 .PHONY: nest-info

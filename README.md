@@ -5,6 +5,7 @@ A production-ready, dockerized NestJS application with modern development practi
 ## Features
 
 - 🚀 **NestJS Framework** - Progressive Node.js framework for building efficient and scalable server-side applications
+- 📦 **pnpm Package Manager** - Fast, disk space efficient package manager with strict dependency resolution
 - 🐳 **Docker Support** - Multi-stage Docker builds for development and production
 - 🔧 **Docker Compose** - Easy orchestration of services
 - 🧪 **Testing** - Unit and E2E tests with Jest
@@ -63,26 +64,26 @@ A production-ready, dockerized NestJS application with modern development practi
 1. **Install dependencies**
 
    ```bash
-   npm install
+   pnpm install
    ```
 
 2. **Start development server**
    ```bash
-   npm run start:dev
+   pnpm run start:dev
    ```
 
 ## Available Scripts
 
-- `npm run build` - Build the application
-- `npm run start` - Start the application
-- `npm run start:dev` - Start in development mode with hot reload
-- `npm run start:debug` - Start in debug mode
-- `npm run start:prod` - Start in production mode
-- `npm run test` - Run unit tests
-- `npm run test:e2e` - Run end-to-end tests
-- `npm run test:cov` - Run tests with coverage
-- `npm run lint` - Lint the code
-- `npm run format` - Format the code
+- `pnpm run build` - Build the application
+- `pnpm run start` - Start the application
+- `pnpm run start:dev` - Start in development mode with hot reload
+- `pnpm run start:debug` - Start in debug mode
+- `pnpm run start:prod` - Start in production mode
+- `pnpm run test` - Run unit tests
+- `pnpm run test:e2e` - Run end-to-end tests
+- `pnpm run test:cov` - Run tests with coverage
+- `pnpm run lint` - Lint the code
+- `pnpm run format` - Format the code
 
 ## API Endpoints
 
