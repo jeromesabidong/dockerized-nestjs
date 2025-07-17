@@ -18,4 +18,9 @@ export class AppController {
       uptime: process.uptime(),
     };
   }
+
+  @Get('test')
+  getTest(): string {
+    return 'This is a test endpoint';
+  }
 }

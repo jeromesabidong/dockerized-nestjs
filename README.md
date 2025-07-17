@@ -177,7 +177,51 @@ make clean              # Clean up containers and volumes
 make clean-all          # Clean up everything including images
 make lint               # Run linter
 make format             # Format code
+
+# NestJS CLI commands
+make nest-info          # Show NestJS project information
+make nest-version       # Show NestJS CLI version
+make nest-generate-controller NAME=users    # Generate a controller
+make nest-generate-service NAME=users       # Generate a service
+make nest-generate-module NAME=users        # Generate a module
+make nest-generate-resource NAME=users      # Generate a complete CRUD resource
+make nest-cli CMD="info"                    # Run custom NestJS CLI command
 ```
+
+### NestJS Code Generation
+
+You can use the NestJS CLI through Docker to generate components:
+
+```bash
+# Generate specific components
+make nest-generate-controller NAME=users
+make nest-generate-service NAME=auth
+make nest-generate-module NAME=products
+
+# Generate a complete CRUD resource (includes controller, service, module, DTOs, entities)
+make nest-generate-resource NAME=posts
+
+# Run any NestJS CLI command
+make nest-cli CMD="generate guard auth"
+make nest-cli CMD="generate interceptor logging"
+
+# Get project information
+make nest-info
+```
+
+**Available NestJS generators:**
+
+- `controller` - Generate a controller
+- `service` - Generate a service
+- `module` - Generate a module
+- `guard` - Generate a guard
+- `interceptor` - Generate an interceptor
+- `pipe` - Generate a pipe
+- `filter` - Generate a filter
+- `decorator` - Generate a custom decorator
+- `gateway` - Generate a WebSocket gateway
+- `resolver` - Generate a GraphQL resolver
+- `resource` - Generate a complete CRUD resource
 
 ## Docker Commands (Manual)
 

@@ -145,5 +145,70 @@ db-seed: ## Seed the database
 db-reset: ## Reset the database
 	docker-compose -f $(COMPOSE_FILE_DEV) exec $(SERVICE_NAME) npm run migration:revert
 
+# NestJS CLI commands
+.PHONY: nest-info
+nest-info: ## Show NestJS project information
+	docker-compose -f $(COMPOSE_FILE_DEV) exec $(SERVICE_NAME) npx nest info
+
+.PHONY: nest-version
+nest-version: ## Show NestJS CLI version
+	docker-compose -f $(COMPOSE_FILE_DEV) exec $(SERVICE_NAME) npx nest --version
+
+.PHONY: nest-generate
+nest-generate: ## Generate NestJS component (usage: make nest-generate COMPONENT=controller NAME=users)
+	@if [ -z "$(COMPONENT)" ] || [ -z "$(NAME)" ]; then \
+		echo "Usage: make nest-generate COMPONENT=<type> NAME=<name>"; \
+		echo "Example: make nest-generate COMPONENT=controller NAME=users"; \
+		echo "Available components: controller, service, module, guard, interceptor, pipe, filter, decorator, gateway, resolver, resource"; \
+	else \
+		docker-compose -f $(COMPOSE_FILE_DEV) exec $(SERVICE_NAME) npx nest generate $(COMPONENT) $(NAME); \
+	fi
+
+.PHONY: nest-generate-controller
+nest-generate-controller: ## Generate a controller (usage: make nest-generate-controller NAME=users)
+	@if [ -z "$(NAME)" ]; then \
+		echo "Usage: make nest-generate-controller NAME=<name>"; \
+		echo "Example: make nest-generate-controller NAME=users"; \
+	else \
+		docker-compose -f $(COMPOSE_FILE_DEV) exec $(SERVICE_NAME) npx nest generate controller $(NAME); \
+	fi
+
+.PHONY: nest-generate-service
+nest-generate-service: ## Generate a service (usage: make nest-generate-service NAME=users)
+	@if [ -z "$(NAME)" ]; then \
+		echo "Usage: make nest-generate-service NAME=<name>"; \
+		echo "Example: make nest-generate-service NAME=users"; \
+	else \
+		docker-compose -f $(COMPOSE_FILE_DEV) exec $(SERVICE_NAME) npx nest generate service $(NAME); \
+	fi
+
+.PHONY: nest-generate-module
+nest-generate-module: ## Generate a module (usage: make nest-generate-module NAME=users)
+	@if [ -z "$(NAME)" ]; then \
+		echo "Usage: make nest-generate-module NAME=<name>"; \
+		echo "Example: make nest-generate-module NAME=users"; \
+	else \
+		docker-compose -f $(COMPOSE_FILE_DEV) exec $(SERVICE_NAME) npx nest generate module $(NAME); \
+	fi
+
+.PHONY: nest-generate-resource
+nest-generate-resource: ## Generate a complete CRUD resource (usage: make nest-generate-resource NAME=users)
+	@if [ -z "$(NAME)" ]; then \
+		echo "Usage: make nest-generate-resource NAME=<name>"; \
+		echo "Example: make nest-generate-resource NAME=users"; \
+	else \
+		docker-compose -f $(COMPOSE_FILE_DEV) exec $(SERVICE_NAME) npx nest generate resource $(NAME); \
+	fi
+
+.PHONY: nest-cli
+nest-cli: ## Run custom NestJS CLI command (usage: make nest-cli CMD="generate controller users")
+	@if [ -z "$(CMD)" ]; then \
+		echo "Usage: make nest-cli CMD=\"<nest-command>\""; \
+		echo "Example: make nest-cli CMD=\"generate controller users\""; \
+		echo "Example: make nest-cli CMD=\"info\""; \
+	else \
+		docker-compose -f $(COMPOSE_FILE_DEV) exec $(SERVICE_NAME) npx nest $(CMD); \
+	fi
+
 # Default command
 .DEFAULT_GOAL := help
